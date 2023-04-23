@@ -34,7 +34,7 @@ const UserList = () => {
           users.map((user : any) =>
           <li key={user.id} data-testid={'user-' + user.id}>
             <Link to={'/user/' + user.id} className='nav-link'>{user.name}</Link>
-            <button onClick={() => handleRemove(user)} style={{marginLeft: '1rem'}}>Remove</button>
+            <button data-testid="delete-button" onClick={() => handleRemove(user)} style={{marginLeft: '1rem'}}>Remove</button>
           </li>)
         }
       </ul>

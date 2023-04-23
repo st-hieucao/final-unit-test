@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 import { MemoryRouter } from 'react-router-dom';
 import UserList from './pages/user-list';
@@ -27,15 +27,12 @@ test('renders loading message when loading is true', () => {
   expect(loadingMessage).toBeInTheDocument();
 });
 
-describe('list user info', () => {
-  test('renders at least one user', async () => {
-    render(<UserList />);
-    const userElements = screen.getAllByTestId(/user-.*/);
-    expect(userElements.length).toBeGreaterThan(0);
-  });
+test('renders at least one user', async () => {
+  render(<UserList />);
+  const userElements = screen.getAllByTestId(/user-.*/);
+  expect(userElements.length).toBeGreaterThan(0);
 });
 
-// user detail
 test('renders user detail', () => {
   render(<UserDetail />);
   const userListElement = screen.getByTestId('user-detail');
@@ -46,4 +43,15 @@ test('renders loading user detail', () => {
   render(<UserDetail />);
   const userLoadingElement = screen.getByTestId('is-loading');
   expect(userLoadingElement).toBeInTheDocument();
+});
+
+test('delete user', () => {
+  render(<UserList />);
+  setTimeout(() => {
+    expect(screen.getByText('Clementina DuBuque')).toBeInTheDocument();
+    expect(screen.getByTestId('delete-button')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button'));
+    expect(screen.queryByText('Clementina DuBuque')).not.toBeInTheDocument();
+  }, 1000);
 });
