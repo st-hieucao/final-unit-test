@@ -21,14 +21,14 @@ const UserDetail = () => {
   };
 
   return (
-    <div>
-      { isLoading && <p>Is loading ...</p>}
+    <div data-testid="user-detail">
+      { isLoading && <p data-testid="is-loading">Is loading ...</p>}
       {
-        userData && <>
+        userData && <div data-testid='user-info'>
           <p>{userData.name}</p>
           <p>{userData.phone}</p>
           <p>{userData.email}</p>
-        </>
+        </div>
       }
     </div>
   )

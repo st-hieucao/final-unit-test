@@ -29,10 +29,10 @@ const UserList = () => {
   return (
     <div>
       <ul data-testid="user-list">
-        { isLoading && <p>Is loading ...</p>}
+        { isLoading && <p data-testid="is-loading">Is loading ...</p>}
         {
           users.map((user : any) =>
-          <li key={user.id}>
+          <li key={user.id} data-testid={'user-' + user.id}>
             <Link to={'/user/' + user.id} className='nav-link'>{user.name}</Link>
             <button onClick={() => handleRemove(user)} style={{marginLeft: '1rem'}}>Remove</button>
           </li>)
